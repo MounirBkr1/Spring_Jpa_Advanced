@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
 
@@ -87,5 +88,26 @@ class StudentRepositoryTest {
     public void printStudentByFirstNameByEmailAdress(){
         String firstName= studentRepository.getStudentFirstNameByEmailAdress("alex@gmzil.com");
         System.out.println("**student firstName by email= "+firstName);
+    }
+
+    //native query
+    @Test
+    public void printStudentByFirstNameByEmailAdressNative(){
+        Student student=studentRepository.getStudentByEmailAddressNative("alex@gmzil.com");
+        System.out.println("**student  by email= "+student);
+    }
+
+    //native named param
+    @Test
+    public void printStudentByFirstNameByEmailAdressNameParam(){
+        Student student=studentRepository.getStudentByEmailAddressNamaParam("alex@gmzil.com");
+        System.out.println("**student  by email= "+student);
+    }
+
+    //update or modified data: @transational & @Modifying annotation
+    @Test
+    private void updateStudentNameByEmailIdTest(){
+        studentRepository.updateStudentNameByEmailId("adam","jjjjdj@gmzil.com");
+
     }
 }
